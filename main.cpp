@@ -221,7 +221,7 @@ int main()
         lcd.printf (" Temp ");
         lcd.printf ("%i",LM35); // print temperature in F or C
 
-
+//test
 
     }
 
