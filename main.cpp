@@ -146,16 +146,31 @@ void normal() //Start of Normal Clock Mode
 } //End of Normal Clock Mode
 
 
-
-
-
 /*void Temperature()
 {
+    int i;
+ 
+while(1)
+{
+ 
+    avg=0;
+    for(i=0;i<10;i++)
+    {
+        a[i]=LM35.read();
+        wait(.02);
+    }
+    for(i=0;i<10;i++)
+    {
+        avg=avg+(a[i]/10);
+    }
+ 
+ 
+tempC=(avg*3.685503686*100);
+tempF=(9.0*tempC)/5.0 + 32.0;
 
-    Temp = analogInput.read()* 3300/10;
 
-}
-// void method to print out the temperature */
+}*/
+
 
 void setMode()
 {
@@ -166,8 +181,8 @@ void setMode()
     lcd.printf ("Enter Sec 00:");
     lcd.printf ("Enter current temperature: ");
     lcd.printf ("Is temperature C or F: ");
-// print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
-}
+
+}// print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
 
 
 /*void flip()
@@ -204,7 +219,7 @@ int main()
         lcd.printf ("%i",Sec); // print seconds
         lcd.locate (0,2);
         lcd.printf (" Temp ");
-        lcd.printf ("%i",Temp); // print temperature in F or C
+        lcd.printf ("%i",LM35); // print temperature in F or C
 
 
 
