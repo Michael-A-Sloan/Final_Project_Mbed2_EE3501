@@ -154,11 +154,13 @@ void normal() //Start of Normal Clock Mode
         Sec = 00;
         Min = Min + 1;
     }
+
     if (Min == 60) /* if minute is equal to 60 then again start from zero and add an increment of one in the hour value */
     {
         Min = 00;
         Hr = Hr + 1;
     }
+
     if (Hr == 13) /* if hour value is 13 then replace its value from 13 to 1 to change it to 12 hour format*/
     {
         Hr = 01;
@@ -177,26 +179,26 @@ void normal() //Start of Normal Clock Mode
     
     }
 
-        cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
-        cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
-        cout << "Normal " << Norm << " Ser " << Set << endl;
+    cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
+    cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
+    cout << "Normal " << Norm << " Ser " << Set << endl;
     
-        lcd.cls (); // lcd cls clears the display*/
+    lcd.cls (); // lcd cls clears the display*/
 
-        lcd.printf ("Time ");
-        lcd.printf ("%02i",Hr); // print hours used %02i for an integer with 2 digits and Preceeding Zeros.
-        lcd.printf ( ":" );
-        lcd.printf ("%02i",Min); // print minutes used %02i for an integer with 2 digits and Preceeding Zeros.
-        lcd.printf ( ":" );
-        lcd.printf ("%02i",Sec); // print seconds used %02i for an integer with 2 digits and Preceeding Zeros.
-        lcd.printf (" ");
-        lcd.printf ("%s",Time); //AM and PM output onto lcd
+    lcd.printf ("Time ");
+    lcd.printf ("%02i",Hr); // print hours used %02i for an integer with 2 digits and Preceeding Zeros.
+    lcd.printf ( ":" );
+    lcd.printf ("%02i",Min); // print minutes used %02i for an integer with 2 digits and Preceeding Zeros.
+    lcd.printf ( ":" );
+    lcd.printf ("%02i",Sec); // print seconds used %02i for an integer with 2 digits and Preceeding Zeros.
+    lcd.printf (" ");
+    lcd.printf ("%s",Time); //AM and PM output onto lcd
 
-        lcd.locate (0,2); //Second Row on LCD
-        lcd.printf ("Temp ");
-        lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
-        lcd.printf (" ");
-        lcd.printf ("%c",Unit);
+    lcd.locate (0,2); //Second Row on LCD
+    lcd.printf ("Temp ");
+    lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
+    lcd.printf (" ");
+    lcd.printf ("%c",Unit);
 
 
 } //End of Normal Clock Mode
@@ -245,7 +247,7 @@ void setMode() // Begining Of Setmode code.
     lcd.printf ("AM/PM");
     wait(1);
 
-    normal();
+    //normal();
 
 
    // }
@@ -271,13 +273,13 @@ int main()
 
         Key = keypad_scan();*/
 
-if (Norm == true)
-{
+        if (Norm == true)
+        {
 
-    while (Norm)
-    {
-        wait(1);
-        normal();
+            while (Norm)
+            {
+                wait(1);
+                normal();
 
 
                 /*if (Key != 0xFF) // Determin Setmode or Normal Mode
@@ -296,16 +298,16 @@ if (Norm == true)
 
                     }
                 }*/ 
-    }
-}
+            }
+        }
 
-else if (Set == true)
-{
+        else if (Set == true)
+        {
 
-    while (Set)
-    {
-        wait(1);
-        setMode();
+            while (Set)
+            {
+                wait(1);
+                setMode();
 
                 /*if (Key != 0xFF) // Determin Setmode or Normal Mode
                 {
@@ -323,27 +325,9 @@ else if (Set == true)
 
                     }
                 }*/        
-    }
-}
+            }
+        }
 
-
-
-     /*   lcd.cls (); // lcd cls clears the display
-
-        lcd.printf ("Time ");
-        lcd.printf ("%02i",Hr); // print hours used %02i for an integer with 2 digits and Preceeding Zeros.
-        lcd.printf ( ":" );
-        lcd.printf ("%02i",Min); // print minutes used %02i for an integer with 2 digits and Preceeding Zeros.
-        lcd.printf ( ":" );
-        lcd.printf ("%02i",Sec); // print seconds used %02i for an integer with 2 digits and Preceeding Zeros.
-        lcd.printf (" ");
-        lcd.printf ("%s",Time); //AM and PM output onto lcd
-
-        lcd.locate (0,2); //Second Row on LCD
-        lcd.printf ("Temp ");
-        lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
-        lcd.printf (" ");
-        lcd.printf ("%c",Unit);*/
 
     }
 
