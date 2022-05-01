@@ -129,9 +129,24 @@ char keypad_scan(void)  //start of keypad_scan(void)
 } //end of int keypad_scan(void)
 
 
+void Temperature() //Begining of temp code
+{
+
+Value = (LM35.read()*5000); // need to figure out this crap here *(5.0/4092.0)*100
+
+ 
+TempC=((Value)/10);
+TempF=(9.0*TempC)/5.0 + 32.0;
+
+
+} //End Of temp code
+
+
 void normal() //Start of Normal Clock Mode
 {
-   
+   Temperature();
+   Key = keypad_scan();
+
    Sec = Sec + 1;
 
     if (Sec == 60)   /* seconds is equal to 60 then again start from zero and add an increment of one in the minute value */
@@ -162,31 +177,40 @@ void normal() //Start of Normal Clock Mode
     
     }
 
+        cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
+        cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
+        cout << "Normal " << Norm << " Ser " << Set << endl;
+    
+        lcd.cls (); // lcd cls clears the display*/
+
+        lcd.printf ("Time ");
+        lcd.printf ("%02i",Hr); // print hours used %02i for an integer with 2 digits and Preceeding Zeros.
+        lcd.printf ( ":" );
+        lcd.printf ("%02i",Min); // print minutes used %02i for an integer with 2 digits and Preceeding Zeros.
+        lcd.printf ( ":" );
+        lcd.printf ("%02i",Sec); // print seconds used %02i for an integer with 2 digits and Preceeding Zeros.
+        lcd.printf (" ");
+        lcd.printf ("%s",Time); //AM and PM output onto lcd
+
+        lcd.locate (0,2); //Second Row on LCD
+        lcd.printf ("Temp ");
+        lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
+        lcd.printf (" ");
+        lcd.printf ("%c",Unit);
+
+
 } //End of Normal Clock Mode
-
-
-void Temperature() //Begining of temp code
-{
-
-Value = (LM35.read()*5000); // need to figure out this crap here *(5.0/4092.0)*100
-
- 
-TempC=((Value)/10);
-TempF=(9.0*TempC)/5.0 + 32.0;
-
-
-} //End Of temp code
 
 
 void setMode() // Begining Of Setmode code.
 {
-    while(Set)
-    {
+    //while(Set)
+    //{
 
        /* wait(1); // wait 1 miliseconds
         normal(); // normal displays the input of enter minute, hour, second*/
 
-        Key = keypad_scan();
+        //Key = keypad_scan();
 
         /*if (Key != 0xFF) // Determin Setmode or Normal Mode
         {
@@ -219,10 +243,12 @@ void setMode() // Begining Of Setmode code.
 
     lcd.cls ();
     lcd.printf ("AM/PM");
-    wait(1); // wait 1 miliseconds
+    wait(1);
+
+    normal();
 
 
-    }
+   // }
 
 } // print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
 
@@ -231,38 +257,78 @@ void setMode() // Begining Of Setmode code.
 int main()
 {
 
-    //Pass.fall(&setMode);   // button fall meaning flip the button when it falls / flips from num mode to set mode
- //   Button.fall(&flip);   // when you press button, sets the mode to either farenheight or celcius
 
-    while (Norm) 
+    while (true) 
     {
-        cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
+        /*cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
         cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
         cout << "Normal " << Norm << " Ser " << Set << endl;
 
-        wait(1); // wait 1 miliseconds
-        normal(); // normal displays the input of enter minute, hour, second
-        setMode(); // for setting time
+        //wait(1); // wait 1 miliseconds
+        //normal(); // normal displays the input of enter minute, hour, second
+        //setMode(); // for setting time
         Temperature(); // temperature method to print Temp in C at the moment
 
-        Key = keypad_scan();
+        Key = keypad_scan();*/
 
+if (Norm == true)
+{
 
-    if (Key != 0xFF) // Determin Setmode or Normal Mode
+    while (Norm)
     {
-        Star += Key;
-        if (Star == "*")
-        {
-
-            Set = true;
-            Norm = false;
-            setMode();
-
-        }
-    } // End of determin 
+        wait(1);
+        normal();
 
 
-        lcd.cls (); // lcd cls clears the display*/
+                /*if (Key != 0xFF) // Determin Setmode or Normal Mode
+                {
+                    Star += Key;
+                    if (Star == "*")
+                    {
+
+                        Set = true;
+                        Norm = false;
+                        while (Set)
+                        {
+                            wait (1);
+                            setMode();
+                        }
+
+                    }
+                }*/ 
+    }
+}
+
+else if (Set == true)
+{
+
+    while (Set)
+    {
+        wait(1);
+        setMode();
+
+                /*if (Key != 0xFF) // Determin Setmode or Normal Mode
+                {
+                    Star += Key;
+                    if (Star == "*")
+                    {
+
+                        Set = false;
+                        Norm = true;
+                        while (Norm)
+                        {
+                            wait(1);
+                            normal();
+                        }
+
+                    }
+                }*/        
+    }
+}
+
+
+
+     /*   lcd.cls (); // lcd cls clears the display
 
         lcd.printf ("Time ");
         lcd.printf ("%02i",Hr); // print hours used %02i for an integer with 2 digits and Preceeding Zeros.
@@ -277,7 +343,7 @@ int main()
         lcd.printf ("Temp ");
         lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
         lcd.printf (" ");
-        lcd.printf ("%c",Unit);
+        lcd.printf ("%c",Unit);*/
 
     }
 
