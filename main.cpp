@@ -9,7 +9,7 @@ using namespace std;
 
 TextLCD lcd(PA_0, PA_1, PA_4, PB_0, PC_1, PC_0); // rs, e, d4-d7
 
-//InterruptIn star(key_map[1][4]);
+//InterruptIn Pass();
 //InterruptIn Button(USER_BUTTON);
 
 
@@ -23,18 +23,23 @@ DigitalIn COL2 (PB_6,PullUp);
 DigitalIn COL3 (PC_7,PullUp);
 DigitalIn COL4 (PA_9,PullUp);
 
-AnalogIn LM35(PC_3); // board pin
+AnalogIn LM35(PC_3); // for my temperature sensor
 
 int Sec = 50; // time in seconds
 int Min = 59; // time in minutes
-int Hr = 12;// time in hours
-//float Temp = TempIn; // temperature C or F
+int Hr = 12; // time in hours
+int AMPM = 2; // This is for my switch code for AM / Pm operation
+string Time = "AM"; //For switch AM PM 
+
 int Volt; // voltage that controls temperature sensor
 char Unit = 'C'; // C stands for celcius
-int AMPM = 2; // time in 12 hour format
-string Time = "AM"; //For switch AM PM 
-float Value, TempF, TempC;
+float Value, TempF, TempC; // temperature values
 
+char Key; //keypad key
+string Star; //keypad star press
+
+bool Norm = true; // controls while loop on normal mode
+bool Set = false; // controls while loop on set mode
 
 
 
@@ -160,49 +165,104 @@ void normal() //Start of Normal Clock Mode
 } //End of Normal Clock Mode
 
 
-void Temperature()
+void Temperature() //Begining of temp code
 {
 
-Value = (LM35.read()); // need to figure out this crap here *(5.0/4092.0)*100
+Value = (LM35.read()*5000); // need to figure out this crap here *(5.0/4092.0)*100
+
  
- 
-TempC=((Value)*100);
+TempC=((Value)/10);
 TempF=(9.0*TempC)/5.0 + 32.0;
 
 
-}
+} //End Of temp code
 
 
-void setMode()
+void setMode() // Begining Of Setmode code.
 {
+    while(Set)
+    {
+
+       /* wait(1); // wait 1 miliseconds
+        normal(); // normal displays the input of enter minute, hour, second*/
+
+        Key = keypad_scan();
+
+        /*if (Key != 0xFF) // Determin Setmode or Normal Mode
+        {
+
+        Star += Key;
+
+        if (Star == "*")
+        {
+
+            Set = false;
+            Norm = true;
+            normal();
+
+        }
+
+        }*/
+
+        //normal(); // normal displays the input of enter minute, hour, second
+        //setMode();
+        //Temperature(); // temperature method to print Temp in C at the moment
 
     lcd.cls ();
-    lcd.printf ("Enter Hr 12:");
-    lcd.printf ("Enter Min 59:");
-    lcd.printf ("Enter Sec 00:");
-    lcd.printf ("Enter current temperature: ");
-    lcd.printf ("Is temperature C or F: ");
+    lcd.printf ("HOUR");
+    wait(1); // wait 1 miliseconds
 
-}// print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
+    lcd.cls ();
+    lcd.printf ("MIN");
+    wait(1); // wait 1 miliseconds
+
+
+    lcd.cls ();
+    lcd.printf ("AM/PM");
+    wait(1); // wait 1 miliseconds
+
+
+    }
+
+} // print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
 
 
 
 int main()
 {
 
- //   star.fall(&setMode);   // button fall meaning flip the button when it falls / flips from num mode to set mode
+    //Pass.fall(&setMode);   // button fall meaning flip the button when it falls / flips from num mode to set mode
  //   Button.fall(&flip);   // when you press button, sets the mode to either farenheight or celcius
 
-    while (true) 
+    while (Norm) 
     {
         cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
         cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
+        cout << "Normal " << Norm << " Ser " << Set << endl;
 
         wait(1); // wait 1 miliseconds
         normal(); // normal displays the input of enter minute, hour, second
+        setMode(); // for setting time
         Temperature(); // temperature method to print Temp in C at the moment
 
-        lcd.cls (); // lcd cls clears the display
+        Key = keypad_scan();
+
+
+    if (Key != 0xFF) // Determin Setmode or Normal Mode
+    {
+        Star += Key;
+        if (Star == "*")
+        {
+
+            Set = true;
+            Norm = false;
+            setMode();
+
+        }
+    } // End of determin 
+
+
+        lcd.cls (); // lcd cls clears the display*/
 
         lcd.printf ("Time ");
         lcd.printf ("%02i",Hr); // print hours used %02i for an integer with 2 digits and Preceeding Zeros.
