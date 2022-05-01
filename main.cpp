@@ -9,8 +9,9 @@ using namespace std;
 
 TextLCD lcd(PA_0, PA_1, PA_4, PB_0, PC_1, PC_0); // rs, e, d4-d7
 
-InterruptIn star(PA_8);
-InterruptIn Button(USER_BUTTON);
+//InterruptIn star(key_map[1][4]);
+//InterruptIn Button(USER_BUTTON);
+
 
 DigitalOut ROW1 (PA_8); 
 DigitalOut ROW2 (PB_10);
@@ -32,10 +33,10 @@ int Volt; // voltage that controls temperature sensor
 char Unit = 'C'; // C stands for celcius
 int AMPM = 2; // time in 12 hour format
 string Time = "AM"; //For switch AM PM 
-float tempC,tempF,a[10],avg;
+float Value, TempF, TempC;
 
 
-  ///////dont modify beforre this
+
 
 //Begining  of Keypad CODE
 
@@ -156,38 +157,20 @@ void normal() //Start of Normal Clock Mode
     
     }
 
- /*   else if (Hr ==13 && AMPM == "PM")
-    {
-        AMPM = "AM";
-    }*/
-
 } //End of Normal Clock Mode
 
 
-/*void Temperature()
+void Temperature()
 {
-    int i;
- 
-while(1)
-{
- 
-    avg=0;
-    for(i=0;i<10;i++)
-    {
-        a[i]=LM35.read();
-        wait(.02);
-    }
-    for(i=0;i<10;i++)
-    {
-        avg=avg+(a[i]/10);
-    }
+
+    Value = (LM35.read()); // need to figure out this crap here
  
  
-tempC=(avg*3.685503686*100);
-tempF=(9.0*tempC)/5.0 + 32.0;
+TempC=(((Value)*0.5)*100);
+TempF=(9.0*TempC)/5.0 + 32.0;
 
 
-}*/
+}
 
 
 void setMode()
@@ -215,19 +198,19 @@ void setMode()
 
 int main()
 {
-  //  star.fall(&setMode);
- //   Button.fall(&flip);
-    // when you press button, sets the mode to either farenheight or celcius
-    // button fall meaning flip the button when it falls / flips from num mode to set mode
 
-    while (1) 
+ //   star.fall(&setMode);   // button fall meaning flip the button when it falls / flips from num mode to set mode
+ //   Button.fall(&flip);   // when you press button, sets the mode to either farenheight or celcius
+
+    while (true) 
     {
         cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
-        cout << "Keypad Press: " << keypad_scan() << endl;
+        cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
 
         wait(1); // wait 1 miliseconds
         normal(); // normal displays the input of enter minute, hour, second
-   //     Temperature(); // temperature method to print farenheight or celcius
+        Temperature(); // temperature method to print Temp in C at the moment
+
         lcd.cls (); // lcd cls clears the display
 
         lcd.printf ("Time ");
@@ -237,11 +220,13 @@ int main()
         lcd.printf ( ":" );
         lcd.printf ("%02i",Sec); // print seconds used %02i for an integer with 2 digits and Preceeding Zeros.
         lcd.printf (" ");
-        lcd.printf ("%s", Time);
-        lcd.locate (0,2);
-        lcd.printf ("Temp ");
-        lcd.printf ("%i",LM35); // print temperature in F or C
+        lcd.printf ("%s",Time); //AM and PM output onto lcd
 
+        lcd.locate (0,2); //Second Row on LCD
+        lcd.printf ("Temp ");
+        lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
+        lcd.printf (" ");
+        lcd.printf ("%c",Unit);
 //test
 
     }
