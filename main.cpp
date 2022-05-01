@@ -144,8 +144,8 @@ TempF=(9.0*TempC)/5.0 + 32.0;
 
 void normal() //Start of Normal Clock Mode
 {
+
    Temperature();
-   Key = keypad_scan();
 
    Sec = Sec + 1;
 
@@ -179,6 +179,7 @@ void normal() //Start of Normal Clock Mode
     
     }
 
+    cout << "Normal Mode" << endl;
     cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
     cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
     cout << "Normal " << Norm << " Ser " << Set << endl;
@@ -199,58 +200,55 @@ void normal() //Start of Normal Clock Mode
     lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
     lcd.printf (" ");
     lcd.printf ("%c",Unit);
-
+    
 
 } //End of Normal Clock Mode
 
 
 void setMode() // Begining Of Setmode code.
 {
-    //while(Set)
-    //{
-
-       /* wait(1); // wait 1 miliseconds
-        normal(); // normal displays the input of enter minute, hour, second*/
-
-        //Key = keypad_scan();
-
-        /*if (Key != 0xFF) // Determin Setmode or Normal Mode
-        {
-
-        Star += Key;
-
-        if (Star == "*")
-        {
-
-            Set = false;
-            Norm = true;
-            normal();
-
-        }
-
-        }*/
-
-        //normal(); // normal displays the input of enter minute, hour, second
-        //setMode();
-        //Temperature(); // temperature method to print Temp in C at the moment
 
     lcd.cls ();
     lcd.printf ("HOUR");
-    wait(1); // wait 1 miliseconds
+    wait(1);
+
+                if (Key != 0xFF) // Determin Setmode or Normal Mode
+                {
+                    Star += Key;
+                    if (Star == "*")
+                    {
+                        Set = false;
+                        Norm = true;
+                    }
+                }
 
     lcd.cls ();
     lcd.printf ("MIN");
-    wait(1); // wait 1 miliseconds
+    wait(1);
+
+                if (Key != 0xFF) // Determin Setmode or Normal Mode
+                {
+                    Star += Key;
+                    if (Star == "*")
+                    {
+                        Set = false;
+                        Norm = true;
+                    }
+                }
 
 
     lcd.cls ();
     lcd.printf ("AM/PM");
-    wait(1);
-
-    //normal();
+    //wait(1);
 
 
-   // }
+
+
+    cout << "Set Mode" << endl;
+    cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
+    cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
+    cout << "Normal " << Norm << " Ser " << Set << endl;
+
 
 } // print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
 
@@ -260,18 +258,8 @@ int main()
 {
 
 
-    while (true) 
+    while (true) //this is to be able to switch back and fourth from normal to setmode. and also to run the code for each.
     {
-        /*cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
-        cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
-        cout << "Normal " << Norm << " Ser " << Set << endl;
-
-        //wait(1); // wait 1 miliseconds
-        //normal(); // normal displays the input of enter minute, hour, second
-        //setMode(); // for setting time
-        Temperature(); // temperature method to print Temp in C at the moment
-
-        Key = keypad_scan();*/
 
         if (Norm == true)
         {
@@ -280,24 +268,18 @@ int main()
             {
                 wait(1);
                 normal();
+                Star.clear();
+                Key = keypad_scan();
 
-
-                /*if (Key != 0xFF) // Determin Setmode or Normal Mode
+                if (Key != 0xFF ) // Determin Setmode or Normal Mode
                 {
                     Star += Key;
                     if (Star == "*")
                     {
-
                         Set = true;
                         Norm = false;
-                        while (Set)
-                        {
-                            wait (1);
-                            setMode();
-                        }
-
                     }
-                }*/ 
+                }
             }
         }
 
@@ -307,24 +289,18 @@ int main()
             while (Set)
             {
                 wait(1);
-                setMode();
-
-                /*if (Key != 0xFF) // Determin Setmode or Normal Mode
+                setMode();  
+                Star.clear();
+                Key = keypad_scan();   
+                if (Key != 0xFF) // Determin Setmode or Normal Mode
                 {
                     Star += Key;
                     if (Star == "*")
                     {
-
                         Set = false;
                         Norm = true;
-                        while (Norm)
-                        {
-                            wait(1);
-                            normal();
-                        }
-
                     }
-                }*/        
+                }
             }
         }
 
