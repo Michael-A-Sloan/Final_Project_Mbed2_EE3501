@@ -163,10 +163,10 @@ void normal() //Start of Normal Clock Mode
 void Temperature()
 {
 
-    Value = (LM35.read()); // need to figure out this crap here
+Value = (LM35.read()); // need to figure out this crap here *(5.0/4092.0)*100
  
  
-TempC=(((Value)*0.5)*100);
+TempC=((Value)*100);
 TempF=(9.0*TempC)/5.0 + 32.0;
 
 
@@ -186,15 +186,6 @@ void setMode()
 }// print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
 
 
-/*void flip()
-{
-    if (unit== 'F') {
-
-    }
-    if (unit== 'C') {
-    }
-    // if unit is farenheight then f, unit c for celcius
-}*/
 
 int main()
 {
@@ -227,7 +218,6 @@ int main()
         lcd.printf ("%02.0f",TempC); // print temperature value used %02.0f for a float with 2 digits rounding up and Preceeding Zeros.
         lcd.printf (" ");
         lcd.printf ("%c",Unit);
-//test
 
     }
 
