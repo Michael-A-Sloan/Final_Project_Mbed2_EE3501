@@ -26,7 +26,7 @@ DigitalIn COL4 (PA_9,PullUp);
 
 AnalogIn LM35(PC_3); // for my temperature sensor
 
-int Sec = 50; // time in seconds
+int Sec = 00; // time in seconds
 int Min = 59; // time in minutes
 int Hr = 12; // time in hours
 int Hr1 = 0;
@@ -148,8 +148,8 @@ TempF=(9.0*TempC)/5.0 + 32.0;
 
 void normal() //Start of Normal Clock Mode
 {
-
-   Temperature();
+    wait(1);
+    Temperature();
 
    Sec = Sec + 1;
 
@@ -211,15 +211,23 @@ void normal() //Start of Normal Clock Mode
 
 void setMode() // Begining Of Setmode code. slow code but workse
 {
-    string pass;
-    pass.size()==2;
+    string shour;
+    shour.size() == 2;
 
+    string smin;
+    smin.size() == 2;
 
-    for (int i=1; i < 4;) //trying a for loop to do the set clock...
+    string sAMPM;
+    sAMPM.size() == 1;
+
+    normal();
+
+    for (int i=1; i < 5;) //trying a for loop to do the set clock...
     {
         switch (i)
         {
             case 1:
+
             lcd.cls ();
             lcd.printf ("HOUR");
 
@@ -237,7 +245,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                     if (Set==true)
                     {
                         Key=keypad_scan();
-                        pass += Key;
+                        shour += Key;
                     }
                     
 
@@ -249,11 +257,11 @@ void setMode() // Begining Of Setmode code. slow code but workse
                     {
                     
                         Key=keypad_scan();
-                        pass += Key;
+                        shour += Key;
 
                     }
                     
-                    ss << pass;
+                    ss << shour;
                     ss >> Hr;
 
                     if(Hr < 13 && Hr > 0)
@@ -281,7 +289,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                 
                 lcd.cls ();
                 lcd.printf ("Set MIN");
-                wait(3);
+               wait(2);
                
                     lcd.cls();
                     lcd.printf("First Digit");
@@ -290,7 +298,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                     if (Set==true)
                     {
                         Key=keypad_scan();
-                        pass += Key;
+                        smin += Key;
                     }
                     
 
@@ -302,20 +310,20 @@ void setMode() // Begining Of Setmode code. slow code but workse
                     {
                     
                         Key=keypad_scan();
-                        pass += Key;
+                        smin += Key;
 
                     }
                     
-                    ss << pass;
-                    ss >> Hr;
+                    ss << smin;
+                    ss >> Min;
 
-                    if(Hr < 13 && Hr > 0)
+                    if(Min < 60 && Min >= 0)
                     {
 
                         wait(1);
                         lcd.locate(0,2);
-                        lcd.printf("HOUR: ");
-                        lcd.printf("%02i", Hr);
+                        lcd.printf("MIN: ");
+                        lcd.printf("%02i", Min);
                         wait(2);
 
                     i++;
@@ -327,32 +335,77 @@ void setMode() // Begining Of Setmode code. slow code but workse
                         wait(2);
                         lcd.cls();
                         lcd.printf("ERROR");
-                    }
+                    } 
 
             break;
 
             case 3:
+
             lcd.cls ();
             lcd.printf ("AM / PM");
+            wait(3);
 
-                if(Hr < 13)
-                {
-                    wait(3);
-                    lcd.cls();
-                    lcd.printf("Set AM / PM: (1,2) ");
+                lcd.cls();
+                lcd.printf("Set AM / PM: (1,2) ");
+                wait(3);
 
-                    Time = Key;
-                    lcd.locate(0,2);
-                    lcd.printf("AM / PM: ");
-                    lcd.printf("%s", Time);
+                    if (Set==true)
+                    {
+                    
+                        Key=keypad_scan();
+                        sAMPM += Key;
+
+                    }
+                    
+                    ss << sAMPM;
+                    ss >> AMPM;
+
+                    switch (AMPM)
+                    {
+                        case 1:
+                        Time = "AM";
+                        AMPM ++;
+                        break;
+
+                        case 2:
+                        Time = "PM";
+                        AMPM --;
+                        break;
+                    }
+    
+
+                    if(AMPM < 3 && AMPM > 0)
+                    {
+
+                        wait(1);
+                        lcd.locate(0,2);
+                        lcd.printf("AM /PM: ");
+                        lcd.printf("%s", Time);
+                        wait(2);
 
                     i++;
-                }
 
-                else 
-                {
-                    lcd.printf("ERROR");
-                }
+                    }
+
+                    else 
+                    {
+                        wait(2);
+                        lcd.cls();
+                        lcd.printf("ERROR");
+                    }
+
+            break;
+
+            case 4:
+
+            while (Sec != 00)
+            {
+                Sec = 00;
+            }
+
+            Set = false;
+            Norm = true;
+            normal();
 
             break;
 
@@ -418,7 +471,7 @@ int main()
 
             while (Norm)
             {
-                wait(1);
+
                 normal();
                 Star.clear();
                 Key = keypad_scan();
