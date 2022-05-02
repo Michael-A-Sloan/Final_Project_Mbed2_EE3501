@@ -260,7 +260,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
                     
                     ss << shour;
                     ss >> Hr;
-
+                    cout << "shour " << shour << " Hr " << Hr << endl;
                     if(Hr < 13 && Hr > 0)
                     {
 
@@ -314,6 +314,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
                     
                     ss << smin;
                     ss >> Min;
+                    cout << "smin " << smin << " Min " << Min << endl;
 
                     if(Min < 60 && Min >= 0)
                     {
@@ -359,6 +360,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
                     
                     ss << sAMPM;
                     ss >> AMPM;
+                    cout << "sAMPM " << sAMPM << " AMPM " << AMPM << endl;
 
                     switch (AMPM)
                     {
