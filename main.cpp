@@ -406,210 +406,210 @@ int setMode() // Begining Of Setmode code. slow code but workse
 		                Min = 8;
 		            break;
 
-	case '09':
-		Min = 9;
-		break;
+	                case '09':
+		                Min = 9;
+		            break;
 
-	case 10:
-		Min = 10;
-		break;
+	                case 10:
+		                Min = 10;
+		            break;
 
-	case 11:
-		Min = 11;
-		break;
+	                case 11:
+		                Min = 11;
+		            break;
 
-	case 12:
-		Min = 12;
-		break;
+	                case 12:
+		                Min = 12;
+		            break;
 
-	case 13:
-		Min = 13;
-		break;
+	                case 13:
+		                Min = 13;
+		            break;
 
-	case 14:
-		Min = 14;
-		break;
+	                case 14:
+		                Min = 14;
+		            break;
 
-	case 15:
-		Min = 15;
-		break;
+	                case 15:
+		                Min = 15;
+		            break;
 
-	case 16:
-		Min = 16;
-		break;
+	                case 16:
+		                Min = 16;
+		            break;
 
-	case 17:
-		Min = 17;
-		break;
+	                case 17:
+		                Min = 17;
+		            break;
 
-	case 18:
-		Min = 18;
-		break;
+	                case 18:
+		                Min = 18;
+		            break;
 
-	case 19:
-		Min = 19;
-		break;
+	                case 19:
+		                Min = 19;
+		            break;
 
-	case 20:
-		Min = 20;
-		break;
+	                case 20:
+		                Min = 20;
+		            break;
 
-	case 21:
-		Min = 21;
-		break;
+	                case 21:
+		                Min = 21;
+		            break;
 
-	case 22:
-		Min = 22;
-		break;
+	                case 22:
+		                Min = 22;
+		            break;
 
-	case 23:
-		Min = 23;
-		break;
+	                case 23:
+		                Min = 23;
+		            break;
 
-	case 24:
-		Min = 24;
-		break;
+	                case 24:
+		                Min = 24;
+		            break;
 
-	case 25:
-		Min = 25;
-		break;
+	                case 25:
+		                Min = 25;
+		            break;
 
-	case 26:
-		Min = 26;
-		break;
+	                case 26:
+		                Min = 26;
+	            	break;
 
-	case 27:
-		Min = 27;
-		break;
+	                case 27:
+	                	Min = 27;
+	            	break;
 
-	case 28:
-		Min = 28;
-		break;
+	                case 28:
+	                	Min = 28;
+	            	break;
 
-	case 29:
-		Min = 29;
-		break;
+	                case 29:
+	                	Min = 29;
+	            	break;
 
-	case 30:
-		Min = 30;
-		break;
+                	case 30:
+                		Min = 30;
+            		break;
 
-	case 31:
-		Min = 31;
-		break;
+                	case 31:
+                		Min = 31;
+            		break;
 
-	case 32:
-		Min = 32;
-		break;
+	                case 32:
+	                	Min = 32;
+            		break;
 
-	case 33:
-		Min = 33;
-		break;
+                	case 33:
+                		Min = 33;
+            		break;
 
-	case 34:
-		Min = 34;
-		break;
+                	case 34:
+                		Min = 34;
+            		break;
 
-	case 35:
-		Min = 35;
-		break;
+                	case 35:
+                		Min = 35;
+            		break;
 
-	case 36:
-		Min = 36;
-		break;
+                	case 36:
+                		Min = 36;
+            		break;
 
-	case 37:
-		Min = 37;
-		break;
+                	case 37:
+                		Min = 37;
+            		break;
 
-	case 38:
-		Min = 38;
-		break;
+                	case 38:
+                		Min = 38;
+            		break;
 
-	case 39:
-		Min = 39;
-		break;
+                	case 39:
+                		Min = 39;
+            		break;
 
-	case 40:
-		Min = 40;
-		break;
+                	case 40:
+                		Min = 40;
+            		break;
 
-	case 41:
-		Min = 41;
-		break;
+                	case 41:
+	                	Min = 41;
+	            	break;
 
-	case 42:
-		Min = 42;
-		break;
+                	case 42:
+                		Min = 42;
+            		break;
 
-	case 43:
-		Min = 43;
-		break;
+                	case 43:
+                		Min = 43;
+            		break;
 
-	case 44:
-		Min = 44;
-		break;
+                	case 44:
+                		Min = 44;
+            		break;
 
-	case 45:
-		Min = 45;
-		break;
+                	case 45:
+                		Min = 45;
+            		break;
 
-	case 46:
-		Min = 46;
-		break;
+                	case 46:
+                		Min = 46;
+            		break;
 
-	case 47:
-		Min = 47;
-		break;
+                	case 47:
+                		Min = 47;
+            		break;
 
-	case 48:
-		Min = 48;
-		break;
+                	case 48:
+                		Min = 48;
+            		break;
 
-	case 49:
-		Min = 49;
-		break;
+                	case 49:
+                		Min = 49;
+            		break;
 
-	case 50:
-		Min = 50;
-		break;
+                	case 50:
+                		Min = 50;
+            		break;
 
-	case 51:
-		Min = 51;
-		break;
+                	case 51:
+                		Min = 51;
+            		break;
 
-	case 52:
-		Min = 52;
-		break;
+                	case 52:
+                		Min = 52;
+            		break;
 
-	case 53:
-		Min = 53;
-		break;
+	                case 53:
+                		Min = 53;
+            		break;
 
-	case 54:
-		Min = 54;
-		break;
+                	case 54:
+                   		Min = 54;
+            		break;
 
-	case 55:
-		Min = 55;
-		break;
+                	case 55:
+                		Min = 55;
+            		break;
 
-	case 56:
-		Min = 56;
-		break;
+                	case 56:
+                		Min = 56;
+            		break;
 
-	case 57:
-		Min = 57;
-		break;
+                	case 57:
+                		Min = 57;
+	            	break;
 
-	case 58:
-		Min = 58;
-		break;
+                	case 58:
+                		Min = 58;
+            		break;
 
-	case 59:
-		Min = 59;
-		break;
-}
+                	case 59:
+	                	Min = 59;
+            		break;
+                    }
 
 
                     if(Min < 60 && Min >= 0)
