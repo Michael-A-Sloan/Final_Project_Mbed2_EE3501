@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 #include <iostream>
+#include <sstream>
 
 
 using namespace std;
@@ -39,6 +40,7 @@ float Value, TempF, TempC; // temperature values
 
 char Key; //keypad key
 string Star; //keypad star press
+stringstream ss;
 
 bool Norm = true; // controls while loop on normal mode
 bool Set = false; // controls while loop on set mode
@@ -209,11 +211,11 @@ void normal() //Start of Normal Clock Mode
 
 void setMode() // Begining Of Setmode code. slow code but workse
 {
-    Key=keypad_scan();
+    string pass;
+    pass.size()==2;
 
 
-
-    /*for (int i=1; i < 4;) //trying a for loop to do the set clock...
+    for (int i=1; i < 4;) //trying a for loop to do the set clock...
     {
         switch (i)
         {
@@ -226,65 +228,106 @@ void setMode() // Begining Of Setmode code. slow code but workse
                     wait(3);
                     lcd.cls();
                     lcd.printf("Set Hr: ");
-                    Key = keypad_scan();
-
+                    wait(2);
+                
                     lcd.cls();
                     lcd.printf("First Digit");
-                    //wait(1);
-                   Key=keypad_scan(); //cin >> Key; 
-                    Hr += Key;
+                    wait(3);
+
+                    if (Set==true)
+                    {
+                        Key=keypad_scan();
+                        pass += Key;
+                    }
                     
 
                     lcd.cls();
                     lcd.printf("Second Digit");
-                    //wait(1);
-                    Key=keypad_scan(); 
-                    Hr += Key;
+                    wait(3);
+
+                    if (Set==true)
+                    {
                     
+                        Key=keypad_scan();
+                        pass += Key;
+
+                    }
+                    
+                    ss << pass;
+                    ss >> Hr;
 
                     if(Hr < 13 && Hr > 0)
                     {
+
                         wait(1);
                         lcd.locate(0,2);
                         lcd.printf("HOUR: ");
                         lcd.printf("%02i", Hr);
-                        wait(3);
+                        wait(2);
 
                     i++;
+
                     }
                     
-                
-
-                else 
-                {
-                    wait(3);
-                    lcd.printf("ERROR");
-                }
+                    else 
+                    {
+                        wait(2);
+                        lcd.cls();
+                        lcd.printf("ERROR");
+                    }
             break;
 
             case 2:
-            lcd.cls ();
-            lcd.printf ("MIN");
-
-                if(Hr < 13)
-                {
-                    wait(3);
+                
+                lcd.cls ();
+                lcd.printf ("Set MIN");
+                wait(3);
+               
                     lcd.cls();
-                    lcd.printf("Set MIN: ");
-                    Key = keypad_scan();
+                    lcd.printf("First Digit");
+                    wait(3);
 
-                    Min = Key;
-                    lcd.locate(0,2);
-                    lcd.printf("MIN: ");
-                    lcd.printf("%02i", Min);
+                    if (Set==true)
+                    {
+                        Key=keypad_scan();
+                        pass += Key;
+                    }
+                    
+
+                    lcd.cls();
+                    lcd.printf("Second Digit");
+                    wait(3);
+
+                    if (Set==true)
+                    {
+                    
+                        Key=keypad_scan();
+                        pass += Key;
+
+                    }
+                    
+                    ss << pass;
+                    ss >> Hr;
+
+                    if(Hr < 13 && Hr > 0)
+                    {
+
+                        wait(1);
+                        lcd.locate(0,2);
+                        lcd.printf("HOUR: ");
+                        lcd.printf("%02i", Hr);
+                        wait(2);
 
                     i++;
-                }
 
-                else 
-                {
-                    lcd.printf("ERROR");
-                }
+                    }
+                    
+                    else 
+                    {
+                        wait(2);
+                        lcd.cls();
+                        lcd.printf("ERROR");
+                    }
 
             break;
 
@@ -297,7 +340,6 @@ void setMode() // Begining Of Setmode code. slow code but workse
                     wait(3);
                     lcd.cls();
                     lcd.printf("Set AM / PM: (1,2) ");
-                    Key = keypad_scan();
 
                     Time = Key;
                     lcd.locate(0,2);
@@ -318,9 +360,9 @@ void setMode() // Begining Of Setmode code. slow code but workse
             
 
         }
-    }*/ // end of for loop for set clock didnt work.
+    } // end of for loop for set clock didnt work.
 
-    lcd.cls (); //this is to prove my switch of modes work
+    /*lcd.cls (); //this is to prove my switch of modes work
     lcd.printf ("HOUR");
     wait(1);
 
@@ -351,7 +393,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
 
     lcd.cls ();
     lcd.printf ("AM/PM");
-    //wait(1);
+    //wait(1);*/
 
 
     cout << "Set Mode" << endl;
