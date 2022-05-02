@@ -209,18 +209,15 @@ void normal() //Start of Normal Clock Mode
 } //End of Normal Clock Mode
 
 
-void setMode() // Begining Of Setmode code. slow code but workse
+int setMode() // Begining Of Setmode code. slow code but workse
 {
     string shour;
-    shour.size() == 2;
 
     string smin;
-    smin.size() == 2;
 
     string sAMPM;
-    sAMPM.size() == 1;
 
-    normal();
+    //normal();
 
     for (int i=1; i < 5;) //trying a for loop to do the set clock...
     {
@@ -272,7 +269,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                         lcd.printf("HOUR: ");
                         lcd.printf("%02i", Hr);
                         wait(2);
-
+                        shour.clear(); 
                     i++;
 
                     }
@@ -282,6 +279,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                         wait(2);
                         lcd.cls();
                         lcd.printf("ERROR");
+                        shour.clear();
                     }
             break;
 
@@ -325,6 +323,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                         lcd.printf("MIN: ");
                         lcd.printf("%02i", Min);
                         wait(2);
+                        smin.clear();
 
                     i++;
 
@@ -335,6 +334,7 @@ void setMode() // Begining Of Setmode code. slow code but workse
                         wait(2);
                         lcd.cls();
                         lcd.printf("ERROR");
+                        smin.clear();
                     } 
 
             break;
@@ -398,14 +398,11 @@ void setMode() // Begining Of Setmode code. slow code but workse
 
             case 4:
 
-            while (Sec != 00)
-            {
-                Sec = 00;
-            }
-
+            Sec = 00;
             Set = false;
             Norm = true;
-            normal();
+            //normal();
+            return(Sec);
 
             break;
 
