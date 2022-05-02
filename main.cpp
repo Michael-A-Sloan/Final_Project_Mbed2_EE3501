@@ -28,6 +28,8 @@ AnalogIn LM35(PC_3); // for my temperature sensor
 int Sec = 50; // time in seconds
 int Min = 59; // time in minutes
 int Hr = 12; // time in hours
+int Hr1 = 0;
+int Hr2 = 0;
 int AMPM = 2; // This is for my switch code for AM / Pm operation
 string Time = "AM"; //For switch AM PM 
 
@@ -205,10 +207,120 @@ void normal() //Start of Normal Clock Mode
 } //End of Normal Clock Mode
 
 
-void setMode() // Begining Of Setmode code.
+void setMode() // Begining Of Setmode code. slow code but workse
 {
+    Key=keypad_scan();
 
-    lcd.cls ();
+
+
+    /*for (int i=1; i < 4;) //trying a for loop to do the set clock...
+    {
+        switch (i)
+        {
+            case 1:
+            lcd.cls ();
+            lcd.printf ("HOUR");
+
+             //   if(Hr < 13 && Hr > 0) 
+            //    {
+                    wait(3);
+                    lcd.cls();
+                    lcd.printf("Set Hr: ");
+                    Key = keypad_scan();
+
+                    lcd.cls();
+                    lcd.printf("First Digit");
+                    //wait(1);
+                   Key=keypad_scan(); //cin >> Key; 
+                    Hr += Key;
+                    
+
+                    lcd.cls();
+                    lcd.printf("Second Digit");
+                    //wait(1);
+                    Key=keypad_scan(); 
+                    Hr += Key;
+                    
+
+                    if(Hr < 13 && Hr > 0)
+                    {
+                        wait(1);
+                        lcd.locate(0,2);
+                        lcd.printf("HOUR: ");
+                        lcd.printf("%02i", Hr);
+                        wait(3);
+
+                    i++;
+                    }
+                    
+                
+
+                else 
+                {
+                    wait(3);
+                    lcd.printf("ERROR");
+                }
+            break;
+
+            case 2:
+            lcd.cls ();
+            lcd.printf ("MIN");
+
+                if(Hr < 13)
+                {
+                    wait(3);
+                    lcd.cls();
+                    lcd.printf("Set MIN: ");
+                    Key = keypad_scan();
+
+                    Min = Key;
+                    lcd.locate(0,2);
+                    lcd.printf("MIN: ");
+                    lcd.printf("%02i", Min);
+
+                    i++;
+                }
+
+                else 
+                {
+                    lcd.printf("ERROR");
+                }
+
+            break;
+
+            case 3:
+            lcd.cls ();
+            lcd.printf ("AM / PM");
+
+                if(Hr < 13)
+                {
+                    wait(3);
+                    lcd.cls();
+                    lcd.printf("Set AM / PM: (1,2) ");
+                    Key = keypad_scan();
+
+                    Time = Key;
+                    lcd.locate(0,2);
+                    lcd.printf("AM / PM: ");
+                    lcd.printf("%s", Time);
+
+                    i++;
+                }
+
+                else 
+                {
+                    lcd.printf("ERROR");
+                }
+
+            break;
+
+
+            
+
+        }
+    }*/ // end of for loop for set clock didnt work.
+
+    lcd.cls (); //this is to prove my switch of modes work
     lcd.printf ("HOUR");
     wait(1);
 
@@ -242,15 +354,13 @@ void setMode() // Begining Of Setmode code.
     //wait(1);
 
 
-
-
     cout << "Set Mode" << endl;
     cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
     cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
     cout << "Normal " << Norm << " Ser " << Set << endl;
 
 
-} // print out statements to print the time in hours, minutes, seconds, temperature, and finally display C and F
+} // mode switch works here
 
 
 
