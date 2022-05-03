@@ -11,7 +11,7 @@ using namespace std;
 TextLCD lcd(PA_0, PA_1, PA_4, PB_0, PC_1, PC_0); // rs, e, d4-d7
 
 //InterruptIn Pass();
-//InterruptIn Button(USER_BUTTON);
+//InterruptIn Temperature(USER_BUTTON);
 
 
 DigitalOut ROW1 (PA_8); 
@@ -26,17 +26,15 @@ DigitalIn COL4 (PA_9,PullUp);
 
 AnalogIn LM35(PC_3); // for my temperature sensor
 
-int Sec = 00; // time in seconds
+int Sec = 45; // time in seconds
 int Min = 59; // time in minutes
 int Hr = 12; // time in hours
-int Hr1 = 0;
-int Hr2 = 0;
 int AMPM = 2; // This is for my switch code for AM / Pm operation
 string Time = "AM"; //For switch AM PM 
 
 int Volt; // voltage that controls temperature sensor
 char Unit = 'C'; // C stands for celcius
-float Value, TempF, TempC; // temperature values
+float Value, Temp, TempF, TempC; // temperature values
 
 char Key; //keypad key
 string Star; //keypad star press
@@ -44,7 +42,8 @@ stringstream ss;
 
 bool Norm = true; // controls while loop on normal mode
 bool Set = false; // controls while loop on set mode
-
+bool F = true;
+bool C = false;
 
 
 //Begining  of Keypad CODE
