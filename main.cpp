@@ -133,10 +133,11 @@ char keypad_scan(void)  //start of keypad_scan(void)
 } //end of int keypad_scan(void)
 
 
+
 void Temperature() //Begining of temp code
 {
 
-Value = (LM35.read()*5000); // need to figure out this crap here *(5.0/4092.0)*100
+Value = (LM35.read()*5000); // need to figure out this  here *(5.0/4092.0)*100
 
  
 TempC=((Value)/10);
@@ -144,6 +145,7 @@ TempF=(9.0*TempC)/5.0 + 32.0;
 
 
 } //End Of temp code
+
 
 
 void normal() //Start of Normal Clock Mode
@@ -209,6 +211,7 @@ void normal() //Start of Normal Clock Mode
 } //End of Normal Clock Mode
 
 
+
 int setMode() // Begining Of Setmode code. slow code but workse
 {
     string shour;
@@ -263,9 +266,9 @@ int setMode() // Begining Of Setmode code. slow code but workse
                     
                     ss << shour;
                     ss >> Hr;
-                    cout << "shour " << shour << " Hr " << Hr << endl;
+                    cout << "shour " << shour << " Hr " << Hr << endl; //for debugging purpose of the Setmode for Hr
 
-                   switch (Hr)
+                   switch (Hr) //This has fixed my issues for the Hr value only on the first run of switch code
                    {
                 	case 01:
 		                Hr = 1;
@@ -330,7 +333,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
 
                     }
                     
-                    else 
+                    else //this does not work properly for some reason.
                     {
                         wait(2);
                         lcd.cls();
@@ -370,10 +373,14 @@ int setMode() // Begining Of Setmode code. slow code but workse
                     
                     ss << smin;
                     ss >> Min;
-                    cout << "smin " << smin << " Min " << Min << endl;
+                    cout << "smin " << smin << " Min " << Min << endl; //for debugging purpose of the Setmode for Min
 
-                    switch(Min)
+                    switch(Min) //I thought this would fix my issues with the Min value
                     {
+	                case 00:
+		                Min = 0;
+		            break;
+
 	                case 01:
 		                Min = 1;
 		            break;
@@ -626,7 +633,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
 
                     }
                     
-                    else 
+                    else //this does not work properly for some reason.
                     {
                         wait(2);
                         lcd.cls();
@@ -656,7 +663,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
                     
                     ss << sAMPM;
                     ss >> AMPM;
-                    cout << "sAMPM " << sAMPM << " AMPM " << AMPM << endl;
+                    cout << "sAMPM " << sAMPM << " AMPM " << AMPM << endl; //for debugging purpose of the Setmode for AM/PM
 
                     switch (AMPM)
                     {
@@ -685,7 +692,7 @@ int setMode() // Begining Of Setmode code. slow code but workse
 
                     }
 
-                    else 
+                    else //this does not work properly for some reason.
                     {
                         wait(2);
                         lcd.cls();
@@ -744,17 +751,18 @@ int setMode() // Begining Of Setmode code. slow code but workse
     //wait(1);*/
 
 
-    cout << "Set Mode" << endl;
-    cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl;
-    cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl;
-    cout << "Normal " << Norm << " Ser " << Set << endl;
+    cout << "Set Mode" << endl; //This few lines are for debugging in my console
+    cout << "Hr " << Hr << " Min " << Min << " Sec " << Sec << " " << Time << " "  << AMPM << endl; //This few lines are for debugging in my console
+    cout << "Keypad Press: " << keypad_scan() << "  Temp: " << Value << endl; //This few lines are for debugging in my console
+    cout << "Normal " << Norm << " Ser " << Set << endl; //This few lines are for debugging in my console
 
 
-} // mode switch works here
+} // End of Switchmode
 
 
 
-int main()
+
+int main() //begining of main
 {
 
 
@@ -807,4 +815,4 @@ int main()
 
     }
 
-}
+} // end of main
